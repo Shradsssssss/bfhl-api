@@ -2,10 +2,16 @@ const express = require("express");
 const cors = require("cors");
 
 const app = express();
-app.use(express.json());
-app.use(cors());
-
 const PORT = 3000;
+
+// ✅ FIXED CORS (important for GitHub Pages)
+app.use(cors({
+  origin: "*",
+  methods: ["GET", "POST"],
+  allowedHeaders: ["Content-Type"]
+}));
+
+app.use(express.json());
 
 // -------- VALIDATION --------
 const isValid = (edge) => {
@@ -146,9 +152,9 @@ app.post("/bfhl", (req, res) => {
   });
 
   res.json({
-    user_id: "shraddhapanjwani_10112004",
-    email_id: "sp6367@srmist.edu.in",
-    college_roll_number: "RA2311003012177",
+    user_id: "shraddhapanjwani_10112004",   
+    email_id: "sp6367@srmist.edu.in",     
+    college_roll_number: "RA2311003012177",        
     hierarchies,
     invalid_entries: invalidEntries,
     duplicate_edges: [...duplicates],
